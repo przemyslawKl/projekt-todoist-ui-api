@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2664b31-1fc7-4c51-9811-101d8e44bf29" name="Changes" comment="Merge to master&#10;Changes:&#10;- added files: &#10;application.properties, BaseTest.java, BrowserFactory.java, FirstAndLastNameUtils.java, junit-platform.properties, LoginTest.java, Properties.java, ResponseUtils.java, StringUtils.java&#10;- modiified files:&#10;workspace.xml">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tests/LoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/LoginTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2664b31-1fc7-4c51-9811-101d8e44bf29" name="Changes" comment="Merge to master&#10;Changes:&#10;- added files: &#10;application.properties, BaseTest.java, BrowserFactory.java, FirstAndLastNameUtils.java, junit-platform.properties, LoginTest.java, Properties.java, ResponseUtils.java, StringUtils.java&#10;- modiified files:&#10;workspace.xml" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
