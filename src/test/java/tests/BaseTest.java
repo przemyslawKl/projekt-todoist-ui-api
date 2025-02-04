@@ -1,9 +1,6 @@
 package tests;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Tracing;
+import com.microsoft.playwright.*;
 import factory.BrowserFactory;
 import org.junit.jupiter.api.*;
 import utils.Properties;
@@ -11,6 +8,8 @@ import utils.Properties;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static utils.Properties.getProperty;
 import static utils.StringUtils.removeRoundBrackets;
@@ -24,6 +23,7 @@ public class BaseTest {
     protected Browser browser;
     protected BrowserContext uiContext;
     protected Page page;
+    protected APIRequestContext apiContext;
 
     @BeforeAll
     void beforeAll() {
@@ -33,7 +33,9 @@ public class BaseTest {
 
     @BeforeEach
     void beforeEach() {
-        uiContext = browser.newContext();
+        uiContext = browser.newContext(new Browser.NewContextOptions().setStorageStatePath(Paths.get(getProperty("login.storage.file"))));
+        //uiContext = browser.newContext();
+
         if (isTraceEnabled()) {
             uiContext.tracing().start(new Tracing.StartOptions()
                     .setScreenshots(true)
@@ -43,6 +45,12 @@ public class BaseTest {
         page = uiContext.newPage();
         page.setViewportSize(Properties.getViewportDimension("browser.width"), Properties.getViewportDimension("browser.height"));
         page.navigate(getProperty("app.url"));
+        Map <String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "Bearer" +  getProperty("api.token"));
+        apiContext = browserFactory.getPw().request().newContext(new APIRequest.NewContextOptions()
+                .setBaseURL("https://api.todoist.com/rest/v2/")
+                .setExtraHTTPHeaders(headers));
     }
 
     @AfterEach
@@ -54,6 +62,7 @@ public class BaseTest {
                     .ofPattern(getProperty("tracing.date.format"))) + ".zip";
             uiContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get(traceName)));
         }
+        apiContext.dispose();
         uiContext.close();
     }
 

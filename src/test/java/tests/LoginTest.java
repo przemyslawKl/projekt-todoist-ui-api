@@ -24,4 +24,9 @@ public class LoginTest extends BaseTest{
 
         uiContext.storageState(new BrowserContext.StorageStateOptions().setPath(Paths.get(getProperty("login.storage.file"))));
     }
+    @Test
+    void should_open_app_as_logged_user_test(){
+        assertThat(page.locator("div [data-testid=app-sidebar-scrollable-container]")).isVisible();
+
+    }
 }
