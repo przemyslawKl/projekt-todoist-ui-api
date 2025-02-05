@@ -47,7 +47,7 @@ public class BaseTest {
         page.navigate(getProperty("app.url"));
         Map <String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
-        headers.put("Authorization", "Bearer" +  getProperty("api.token"));
+        headers.put("Authorization", "Bearer " +  getProperty("api.token"));
         apiContext = browserFactory.getPw().request().newContext(new APIRequest.NewContextOptions()
                 .setBaseURL("https://api.todoist.com/rest/v2/")
                 .setExtraHTTPHeaders(headers));
