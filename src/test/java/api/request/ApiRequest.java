@@ -1,4 +1,4 @@
-package request;
+package api.request;
 
 import com.google.gson.JsonObject;
 import com.microsoft.playwright.APIRequestContext;
@@ -11,6 +11,12 @@ public class ApiRequest {
     public static APIResponse post (APIRequestContext apiContext, String endpoint, JsonObject payload) {
         final var response = apiContext.post(endpoint, RequestOptions.create().setData(payload));
         log.info("API CALL POST - {}", response.text());
+        return response;
+    }
+
+    public static APIResponse delete (APIRequestContext apiContext, String endpoint) {
+        final var response = apiContext.delete(endpoint);
+        log.info("API CALL DELETE - {}", response.text());
         return response;
     }
 }
