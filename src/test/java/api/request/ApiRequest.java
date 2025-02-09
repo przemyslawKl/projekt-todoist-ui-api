@@ -11,6 +11,9 @@ public class ApiRequest {
     public static APIResponse post (APIRequestContext apiContext, String endpoint, JsonObject payload) {
         final var response = apiContext.post(endpoint, RequestOptions.create().setData(payload));
         log.info("API CALL POST - {}", response.text());
+        if (response.text().contains("Maximum number of projects per user limit reached")) {
+            throw new RuntimeException("Maximum number of projects per user limit reached");
+        }
         return response;
     }
 

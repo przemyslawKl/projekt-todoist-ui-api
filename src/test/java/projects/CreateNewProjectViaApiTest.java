@@ -36,12 +36,36 @@ public class CreateNewProjectViaApiTest extends BaseTest {
     @Test
     void should_create_project_test_with_one_letter(){
         //GIVEN
-        final var projectName = "A";
+        final var projectName = "X";
         //WHEN
         final var response = ApiSteps.createProject(apiContext, projectName);
         projectId = ResponseUtils.apiResponseToJsonObject(response).get("id").getAsString();
         //THEN
         PlaywrightAssertions.assertThat(page.locator("//a[contains(@aria-label, '" + projectName + "')]")).isVisible();
 
+    }
+    //@Test
+    void should_create_five_projects_test_with_one_letter(){
+        //GIVEN
+        int i = 0;
+        while (true) {
+            final var projectName = "Project " + FirstAndLastNameUtils.getFirstName() + " " + FirstAndLastNameUtils.getLastName();
+            try {
+                //WHEN
+                final var response = ApiSteps.createProject(apiContext, projectName);
+
+                projectId = ResponseUtils.apiResponseToJsonObject(response).get("id").getAsString();
+                //THEN
+                PlaywrightAssertions.assertThat(page.locator("//a[contains(@aria-label, '" + projectName + "')]")).isVisible();
+                i++;
+            } catch (RuntimeException e) {
+                if (e.getMessage().contains("Maximum number of projects per user limit reached")) {
+                    log.info("Project limit reached after creating {} projects", i);
+                    break;
+                } else {
+                    throw e;
+                }
+            }
+        }
     }
 }
